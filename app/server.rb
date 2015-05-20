@@ -13,6 +13,8 @@ class Bookmarkmanager < Sinatra::Base
  enable :sessions
  set :session_secret, 'super secret'
  use Rack::Flash
+ use Rack::MethodOverride
+ set :partial_template_engine, :erb
 
 
   get '/' do
@@ -56,8 +58,19 @@ class Bookmarkmanager < Sinatra::Base
   end
 
   get '/sessions/new' do
+
     erb :'sessions/new'
   end
+
+  delete '/sessions' do
+    session.clear
+    flash[:notice] = ['Good bye!']
+    redirect to '/sessions/new'
+
+  end
+
+
+  # This will allow us to use a new method in our server file, 'delete'. The final piece to this puzzle is that we need a Sinatra 'delete' method to handle the incoming signout request. It will need to set a flash message, invalidate the session for the user who is signing out and then redirect appropriately. See if you can set it up correctly.
 
   post '/sessions' do
     email, password = params[:email], params[:password]
