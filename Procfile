@@ -1,1 +1,1 @@
-web: bundle exec ruby ./app/bookmark_manager.rb -p $PORT
+web: bundle exec ruby ./app/server.rb -p $PORT
