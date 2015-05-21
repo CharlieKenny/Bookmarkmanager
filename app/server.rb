@@ -15,7 +15,7 @@ class Bookmarkmanager < Sinatra::Base
  use Rack::Flash
  use Rack::MethodOverride
  set :partial_template_engine, :erb
-
+ set :public_folder, File.join(root, '../public')
 
   get '/' do
     @links = Link.all
